@@ -31,6 +31,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            z-index: 1001;
         }
         .bar {
             width: 100%;
@@ -46,6 +47,11 @@
         <div class="bar"></div>
     </button>
     <div id="library">
+        <button id="closeButton" style="position: absolute; top: 10px; right: 10px; background: none; border: none; cursor: pointer;">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </button>
         <h2>Моя библиотека</h2>
         <ul>
             <li>Гарри Поттер</li>
@@ -56,7 +62,7 @@
     </div>
     
     <script>
-        document.getElementById("toggleButton").addEventListener("click", function() {
+        function toggleLibrary() {
             var library = document.getElementById("library");
             if (library.style.display === "none" || library.style.display === "") {
                 library.style.display = "block";
@@ -65,7 +71,10 @@
                 library.style.right = "-25%";
                 setTimeout(() => { library.style.display = "none"; }, 300);
             }
-        });
+        }
+
+        document.getElementById("toggleButton").addEventListener("click", toggleLibrary);
+        document.getElementById("closeButton").addEventListener("click", toggleLibrary);
     </script>
 </body>
 </html>
