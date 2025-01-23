@@ -5,24 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Библиотека</title>
     <style>
+        body {
+            background: black;
+            color: white;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+        }
         #library {
             position: fixed;
             top: 0;
-            right: -25%;
+            left: -25%;
             width: 25%;
             height: 100%;
-            background: white;
-            border-left: 2px solid black;
-            box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+            background: black;
+            color: white;
+            border-right: 2px solid white;
+            box-shadow: 2px 0 5px rgba(255,255,255,0.3);
             overflow-y: auto;
-            transition: right 0.3s ease-in-out;
+            transition: left 0.3s ease-in-out;
             padding: 10px;
             display: none;
         }
-        #toggleButton {
+        #toggleButton, #closeButton {
             position: fixed;
             top: 10px;
-            right: 10px;
+            left: 10px;
             width: 30px;
             height: 25px;
             background: none;
@@ -36,7 +43,10 @@
         .bar {
             width: 100%;
             height: 4px;
-            background-color: black;
+            background-color: white;
+        }
+        h2, ul, li {
+            color: white;
         }
     </style>
 </head>
@@ -47,7 +57,7 @@
         <div class="bar"></div>
     </button>
     <div id="library">
-        <button id="closeButton" style="position: absolute; top: 10px; right: 10px; background: none; border: none; cursor: pointer;">
+        <button id="closeButton" style="position: absolute; top: 10px; left: 10px; background: none; border: none; cursor: pointer;">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
@@ -66,9 +76,9 @@
             var library = document.getElementById("library");
             if (library.style.display === "none" || library.style.display === "") {
                 library.style.display = "block";
-                library.style.right = "0px";
+                library.style.left = "0px";
             } else {
-                library.style.right = "-25%";
+                library.style.left = "-25%";
                 setTimeout(() => { library.style.display = "none"; }, 300);
             }
         }
