@@ -4,10 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Библиотека</title>
+    <style>
+        #library {
+            position: fixed;
+            top: 0;
+            right: -25%;
+            width: 25%;
+            height: 100%;
+            background: white;
+            border-left: 2px solid black;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            transition: right 0.3s ease-in-out;
+            padding: 10px;
+        }
+        #toggleButton {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+    </style>
 </head>
 <body>
     <button id="toggleButton">Открыть/Закрыть библиотеку</button>
-    <div id="library" style="display: none;">
+    <div id="library">
         <h2>Моя библиотека</h2>
         <ul>
             <li>Гарри Поттер</li>
@@ -20,7 +41,7 @@
     <script>
         document.getElementById("toggleButton").addEventListener("click", function() {
             var library = document.getElementById("library");
-            library.style.display = library.style.display === "none" ? "block" : "none";
+            library.style.right = library.style.right === "0px" ? "-25%" : "0px";
         });
     </script>
 </body>
