@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="lv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Библиотека</title>
+    <title>Virtuālais Pianīns</title>
     <style>
         body {
             background: white;
@@ -11,20 +11,21 @@
             font-size: 16px;
             font-family: Arial, sans-serif;
         }
-        #library {
+        #menu {
             position: fixed;
             top: 50px;
-            left: -25%;
-            width: 25%;
+            left: -30%;
+            width: 30%;
             height: calc(100% - 50px);
             background: rgba(0, 0, 0, 0.8);
             color: white;
             border-right: 2px solid white;
             box-shadow: 2px 0 5px rgba(255,255,255,0.3);
             overflow-y: auto;
-            transition: left 0.3s ease-in-out;
+            transition: left 0.5s ease-in-out, opacity 0.5s ease-in-out;
             padding: 20px;
-            display: none;
+            display: block;
+            opacity: 0;
         }
         #toggleButton {
             position: fixed;
@@ -45,8 +46,17 @@
             height: 4px;
             background-color: black;
         }
-        h2, ul, li {
+        h2, ul, li, button {
             color: white;
+        }
+        .menu-option {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            padding: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
         }
     </style>
 </head>
@@ -56,29 +66,38 @@
         <div class="bar"></div>
         <div class="bar"></div>
     </button>
-    <div id="library">
-        <h2>Моя библиотека</h2>
-        <ul>
-            <li>Гарри Поттер</li>
-            <li>Война и мир</li>
-            <li>Преступление и наказание</li>
-            <li>1984</li>
-        </ul>
-    </div>
     
+    <div id="menu">
+        <h2>Virtuālais Pianīns</h2>
+        <button class="menu-option" onclick="openLibrary()">Bibliotēka</button>
+        <button class="menu-option" onclick="downloadMelody()">Lejupielādēt melodiju</button>
+        <button class="menu-option" onclick="toggleTrainingMode()">Apmācības režīms</button>
+        <button class="menu-option" onclick="changeTone()">Mainīt toņus</button>
+    </div>   
     <script>
-        function toggleLibrary() {
-            var library = document.getElementById("library");
-            if (library.style.display === "none" || library.style.display === "") {
-                library.style.display = "block";
-                library.style.left = "0px";
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            if (menu.style.left === "-30%") {
+                menu.style.left = "0px";
+                menu.style.opacity = "1";
             } else {
-                library.style.left = "-25%";
-                setTimeout(() => { library.style.display = "none"; }, 300);
+                menu.style.left = "-30%";
+                menu.style.opacity = "0";
             }
         }
-
-        document.getElementById("toggleButton").addEventListener("click", toggleLibrary);
+        function openLibrary() {
+            alert("Atver bibliotēku...");
+        }
+        function downloadMelody() {
+            alert("Lejupielādē melodiju...");
+        }
+        function toggleTrainingMode() {
+            alert("Apmācības režīms ieslēgts/izslēgts");
+        }
+        function changeTone() {
+            alert("Maina toņus...");
+        } 
+        document.getElementById("toggleButton").addEventListener("click", toggleMenu);
     </script>
 </body>
 </html>
