@@ -24,7 +24,12 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
             z-index: 1000;
         }
+        #leftControls {
+            display: flex;
+            align-items: center;
+        }
         #toggleButton {
+            margin-right: 10px;
             width: 30px;
             height: 25px;
             background: none;
@@ -84,12 +89,14 @@
 </head>
 <body>
     <div id="topBar">
-        <button id="toggleButton">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </button>
-        <button id="homeButton" onclick="goHome()">Galvenā</button>
+        <div id="leftControls">
+            <button id="toggleButton">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
+            <button id="homeButton" onclick="goHome()">Galvenā</button>
+        </div>
         <span id="languageToggle" onclick="toggleLanguage()">LV</span>
     </div>
     <div id="menu">
@@ -103,32 +110,42 @@
         <!-- Содержимое библиотеки -->
     </div>
     <script>
+        const translations = {
+            lv: { library: "Skaņu bibliotēka", home: "Galvenā", download: "Lejupielādēt melodiju", training: "Apmācības režīms", tones: "Mainīt toņus" },
+            en: { library: "Sound Library", home: "Home", download: "Download melody", training: "Training mode", tones: "Change tones" }
+        };
+
         function toggleLanguage() {
-            // Логика переключения языка (оставлено без изменений)
+            const langToggle = document.getElementById("languageToggle");
+            const lang = langToggle.textContent === "LV" ? "en" : "lv";
+            document.querySelectorAll("[data-lang]").forEach(el => {
+                el.textContent = translations[lang][el.dataset.lang];
+            });
+            langToggle.textContent = lang.toUpperCase();
         }
+        
         function toggleLibrary() {
-            var library = document.getElementById("musicLibrary");
+            const library = document.getElementById("musicLibrary");
             library.style.display = (library.style.display === "none" || library.style.display === "") ? "block" : "none";
             closeMenu();
         }
+
         function toggleMenu() {
-            var menu = document.getElementById("menu");
-            if (menu.style.left === "-25%") {
-                menu.style.left = "0";
-                menu.style.opacity = "1";
-            } else {
-                menu.style.left = "-25%";
-                menu.style.opacity = "0";
-            }
+            const menu = document.getElementById("menu");
+            menu.style.left = menu.style.left === "-25%" ? "0" : "-25%";
+            menu.style.opacity = menu.style.opacity === "0" ? "1" : "0";
         }
+
         function closeMenu() {
-            var menu = document.getElementById("menu");
+            const menu = document.getElementById("menu");
             menu.style.left = "-25%";
             menu.style.opacity = "0";
         }
+
         function goHome() {
             location.reload();
         }
+
         document.getElementById("toggleButton").addEventListener("click", toggleMenu);
     </script>
 </body>
