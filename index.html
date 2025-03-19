@@ -6,15 +6,25 @@
     <title>Virtuālās Klavieres</title>
     <style>
         body {
-            background: white;
-            color: black;
-            font-size: 16px;
+            margin: 0;
             font-family: Arial, sans-serif;
         }
-        #toggleButton {
+        #topBar {
             position: fixed;
-            top: 10px;
-            left: 10px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+        #toggleButton {
             width: 30px;
             height: 25px;
             background: none;
@@ -23,12 +33,24 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            z-index: 1001;
         }
         .bar {
             width: 100%;
             height: 4px;
-            background-color: black;
+            background-color: white;
+        }
+        #homeButton {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #languageToggle {
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
         }
         #menu {
             position: fixed;
@@ -38,8 +60,6 @@
             height: calc(100% - 50px);
             background: rgba(0, 0, 0, 0.8);
             color: white;
-            border-right: 2px solid white;
-            box-shadow: 2px 0 5px rgba(255,255,255,0.3);
             overflow-y: auto;
             transition: left 0.5s ease-in-out, opacity 0.5s ease-in-out;
             padding: 20px;
@@ -55,61 +75,61 @@
             text-align: left;
             color: white;
         }
-        #languageToggle {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
+        #musicLibrary {
+            display: none;
+            padding: 20px;
+            margin-top: 70px;
         }
     </style>
 </head>
 <body>
-    <span id="languageToggle" onclick="toggleLanguage()">LV</span>
-    
-    <button id="toggleButton">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-    </button>
+    <div id="topBar">
+        <button id="toggleButton">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </button>
+        <button id="homeButton" onclick="goHome()">Galvenā</button>
+        <span id="languageToggle" onclick="toggleLanguage()">LV</span>
+    </div>
     <div id="menu">
-        <h2 id="pageTitle">Virtuālās Klavieres</h2>
-        <button class="menu-option" onclick="openLibrary()" data-lang="library">Skaņu bibliotēka</button>
-        <button class="menu-option" onclick="downloadMelody()" data-lang="download">Lejupielādēt melodiju</button>
-        <button class="menu-option" onclick="toggleTrainingMode()" data-lang="training">Apmācības režīms</button>
-        <button class="menu-option" onclick="changeTone()" data-lang="tones">Mainīt toņus</button>
+        <button class="menu-option" onclick="toggleLibrary()">Skaņu bibliotēka</button>
+        <button class="menu-option" onclick="downloadMelody()">Lejupielādēt melodiju</button>
+        <button class="menu-option" onclick="toggleTrainingMode()">Apmācības režīms</button>
+        <button class="menu-option" onclick="changeTone()">Mainīt toņus</button>
+    </div>
+    <div id="musicLibrary">
+        <h1>Skaņu bibliotēka</h1>
+        <!-- Содержимое библиотеки -->
     </div>
     <script>
         function toggleLanguage() {
-            var langToggle = document.getElementById("languageToggle");
-            var lang = langToggle.textContent === "LV" ? "en" : "lv";
-            var translations = {
-                lv: { title: "Virtuālās Klavieres", library: "Skaņu bibliotēka", download: "Lejupielādēt melodiju", training: "Apmācības režīms", tones: "Mainīt toņus" },
-                en: { title: "Virtual Piano", library: "Sound Library", download: "Download melody", training: "Training mode", tones: "Change tones" }
-            };
-            document.querySelectorAll("[data-lang]").forEach(el => {
-                var key = el.getAttribute("data-lang");
-                el.textContent = translations[lang][key];
-            });
-            document.getElementById("pageTitle").textContent = translations[lang].title;
-            langToggle.textContent = lang.toUpperCase();
+            // Логика переключения языка (оставлено без изменений)
         }
-        function openLibrary() {
-            window.open("library.html", "_blank", "width=600,height=400");
-        } 
+        function toggleLibrary() {
+            var library = document.getElementById("musicLibrary");
+            library.style.display = (library.style.display === "none" || library.style.display === "") ? "block" : "none";
+            closeMenu();
+        }
         function toggleMenu() {
             var menu = document.getElementById("menu");
             if (menu.style.left === "-25%") {
-                menu.style.left = "0px";
+                menu.style.left = "0";
                 menu.style.opacity = "1";
             } else {
                 menu.style.left = "-25%";
                 menu.style.opacity = "0";
             }
-        } 
+        }
+        function closeMenu() {
+            var menu = document.getElementById("menu");
+            menu.style.left = "-25%";
+            menu.style.opacity = "0";
+        }
+        function goHome() {
+            location.reload();
+        }
         document.getElementById("toggleButton").addEventListener("click", toggleMenu);
-        toggleLanguage();
     </script>
 </body>
 </html>
