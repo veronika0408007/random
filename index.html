@@ -29,8 +29,7 @@
     const kur = ["bibliotēkā", "rūpnīcā", "darzā", "pilī", "Parkā", "klasē", "Muzejā", "tātrī", "kinoteātrī", "IZV", "kafejnīcā", "restorānā", "veikalā", "baznīcā", "autoostā", "dzelzceļa stacijā", "lidostā", "mežā", "pludmalē", "virtuvē", "kalnos", "uz egles", "siltumnīcā", "pagrabā"];
     const kā = ["izmisīgi", "radoši", "gudri", "pieklājīgi", "ātri", "lēni", "klusi", "skaļi", "droši", "pārgalvīgi", "uzmanīgi", "precīzi", "neuzmanīgi", "kārtīgi", "daudzsološi", "sirsnīgi", "aizrautīgi", "slinki", "aktīvi", "pārliecinoši", "šaubīgi", "enerģiski", "mierīgi", "slepeni"];
     const koDaris = ["ēdīs", "pirks", "apgūs", "griezīs", "zīmēs", "lasīs", "dedzinās", "meklēs", "sapratīs", "spēlēs", "programmēs", "saņems", "krāsos", "cels", "gleznos", "fotografēs", "gaidīs", "skries", "stādīs", "pētīs", "mācīs", "gatavos", "nosūtīs", "atradīs"];
-    const ko = ["gaļu", "kalkulatoru", "pūķi", "koku", "kartupeli", "datoru", "grāmatu", "prezentāciju", "pienenes", "disko bumbu", "televizoru", "tosteri", "naudu", "kaktusu", "šokolādi", "paslēpes", "bumbu", "telefonu", "biļeti", "cepumu", "zirgu", "filmu", "krēslu", "zeķi"];
-      
+    const ko = ["gaļu", "kalkulatoru", "pūķi", "koku", "kartupeli", "datoru", "grāmatu", "prezentāciju", "pienenes", "disko bumbu", "televizoru", "tosteri", "naudu", "kaktusu", "šokolādi", "paslēpes", "bumbu", "telefonu", "biļeti", "cepumu", "zirgu", "filmu", "krēslu", "zeķi"];    
     function generateSentence() {
       const rand = arr => arr[Math.floor(Math.random() * arr.length)];
       const sentence = `${rand(kas)} ${rand(kur)} ${rand(kā)} ${rand(koDaris)} ${rand(ko)}.`;
