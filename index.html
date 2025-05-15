@@ -1,194 +1,41 @@
 <!DOCTYPE html>
 <html lang="lv">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Virtuālās Klavieres</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        #topBar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 50px;
-            background: #333;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-        }
-        #leftControls {
-            display: flex;
-            align-items: center;
-        }
-        #toggleButton {
-            margin-right: 10px;
-            width: 30px;
-            height: 25px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .bar {
-            width: 100%;
-            height: 4px;
-            background-color: white;
-        }
-        #homeButton {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        #languageToggle {
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-        }
-        #menu {
-            position: fixed;
-            top: 50px;
-            left: -25%;
-            width: 25%;
-            height: calc(100% - 50px);
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            overflow-y: auto;
-            transition: left 0.5s ease-in-out, opacity 0.5s ease-in-out;
-            padding: 20px;
-            opacity: 0;
-        }
-        .menu-option {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            padding: 10px;
-            margin: 5px 0;
-            cursor: pointer;
-            width: 100%;
-            text-align: left;
-            color: white;
-        }
-        #musicLibrary {
-            display: none;
-            padding: 20px;
-            margin-top: 70px;
-        }
-        .music-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        .cover {
-            width: 50px;
-            height: 50px;
-            background: gray;
-            margin-right: 10px;
-        }
-        .details {
-            display: flex;
-            flex-direction: column;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Nejaušs teikums</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    p {
+      margin-top: 20px;
+      font-size: 24px;
+    }
+  </style>
 </head>
 <body>
-    <div id="topBar">
-        <div id="leftControls">
-            <button id="toggleButton">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </button>
-            <button id="homeButton" onclick="goHome()">Galvenā</button>
-        </div>
-        <span id="languageToggle" onclick="toggleLanguage()">LV</span>
-    </div>
-    <div id="menu">
-        <button class="menu-option" onclick="toggleLibrary()">Skaņu bibliotēka</button>
-        <button class="menu-option" onclick="downloadMelody()">Lejupielādēt melodiju</button>
-        <button class="menu-option" onclick="toggleTrainingMode()">Apmācības režīms</button>
-        <button class="menu-option" onclick="changeTone()">Mainīt toņus</button>
-    </div>
-    <div id="musicLibrary">
-        <h1>Skaņu bibliotēka</h1>
-        <div class="music-item">
-            <div class="cover"></div>
-            <div class="details">
-                <strong>Nosaukums:</strong> Serenāde<br>
-                <strong>Autors:</strong> Jānis Bērziņš
-            </div>
-        </div>
-        <div class="music-item">
-            <div class="cover"></div>
-            <div class="details">
-                <strong>Nosaukums:</strong> Rīta melodija<br>
-                <strong>Autors:</strong> Anna Kalniņa
-            </div>
-        </div>
-        <div class="music-item">
-            <div class="cover"></div>
-            <div class="details">
-                <strong>Nosaukums:</strong> Vēja deja<br>
-                <strong>Autors:</strong> Roberts Ozols
-            </div>
-        </div>
-        <div class="music-item">
-            <div class="cover"></div>
-            <div class="details">
-                <strong>Nosaukums:</strong> Klusuma stunda<br>
-                <strong>Autors:</strong> Daina Liepa
-            </div>
-        </div>
-    </div>
-    <script>
-        const translations = {
-            lv: { library: "Skaņu bibliotēka", home: "Galvenā", download: "Lejupielādēt melodiju", training: "Apmācības režīms", tones: "Mainīt toņus" },
-            en: { library: "Sound Library", home: "Home", download: "Download melody", training: "Training mode", tones: "Change tones" }
-        };
-
-        function toggleLanguage() {
-            const langToggle = document.getElementById("languageToggle");
-            const lang = langToggle.textContent === "LV" ? "en" : "lv";
-            document.querySelectorAll("[data-lang]").forEach(el => {
-                el.textContent = translations[lang][el.dataset.lang];
-            });
-            langToggle.textContent = lang.toUpperCase();
-        }
-        
-        function toggleLibrary() {
-            const library = document.getElementById("musicLibrary");
-            library.style.display = (library.style.display === "none" || library.style.display === "") ? "block" : "none";
-            closeMenu();
-        }
-
-        function toggleMenu() {
-            const menu = document.getElementById("menu");
-            menu.style.left = menu.style.left === "-25%" ? "0" : "-25%";
-            menu.style.opacity = menu.style.opacity === "0" ? "1" : "0";
-        }
-
-        function closeMenu() {
-            const menu = document.getElementById("menu");
-            menu.style.left = "-25%";
-            menu.style.opacity = "0";
-        }
-
-        function goHome() {
-            location.reload();
-        }
-
-        document.getElementById("toggleButton").addEventListener("click", toggleMenu);
-    </script>
+  <h1>Ģenerēt nejaušu teikumu</h1>
+  <button onclick="generateSentence()">Ģenerēt</button>
+  <p id="sentence"></p>
+  <script>
+    const kas = ["Aleksis", "Anastasija", "Nikita", "Līva", "Rihards", "Alberts", "Georgiy", "Veronika", "Megija", "Matīss", "Edvards", "Sofja", "Arturs", "Iļja", "Vinsents", "Emīls", "Evelīna", "Roberts", "Rinalds", "Valts", "Rolands", "Marija", "Eduards"];
+    const kur = ["Bibliotēkā", "Rūpnīcā", "Dārzā", "Pilī", "Parkā", "Klasē", "Muzejā", "Teātrī", "Kinoteātrī", "IZV", "Kafejnīcā", "Restorānā", "Veikalā", "Baznīcā", "Autoostā", "Dzelzceļa stacijā", "Lidostā", "Mežā", "Pludmalē", "Virtuvē", "Kalnos", "Skolas pagalmā", "Siltumnīcā", "Pagrabā"];
+    const kā = ["Izmisīgi", "Radoši", "Gudri", "Pieklājīgi", "Ātri", "Lēni", "Klusi", "Skaļi", "Droši", "Pārgalvīgi", "Uzmanīgi", "Precīzi", "Neuzmanīgi", "Kārtīgi", "Daudzsološi", "Sirsnīgi", "Aizrautīgi", "Slinki", "Aktīvi", "Pārliecinoši", "Šaubīgi", "Enerģiski", "Mierīgi", "Slepeni"];
+    const koDaris = ["Ēdīs", "Pirks", "Apgūs", "Griezīs", "Zīmēs", "Lasīs", "Dedzinās", "Meklēs", "Sapratīs", "Spēlēs", "Programmēs", "Saņems", "Krāsos", "Cels", "Gleznos", "Fotografēs", "Gaidīs", "Cepts", "Stādīs", "Pētīs", "Mācīs", "Gatavos", "Nosūtīs", "Atradīs"];
+    const ko = ["Gaļu", "Kalkulatoru", "Pūķi", "Koku", "Kartupeli", "Datoru", "Grāmatu", "Prezentāciju", "Pienenes", "Disko bumbu", "Televizoru", "Tosteri", "Naudu", "Kaktusu", "Šokolādi", "Paslēpes", "Bumbu", "Telefonu", "Biļeti", "Cepumu", "Zirgu", "Filmu", "Krēslu", "Zeķi"];
+      
+    function generateSentence() {
+      const rand = arr => arr[Math.floor(Math.random() * arr.length)];
+      const sentence = `${rand(kas)} ${rand(kur)} ${rand(kā)} ${rand(koDaris)} ${rand(ko)}.`;
+      document.getElementById('sentence').textContent = sentence;
+    }
+  </script>
 </body>
 </html>
